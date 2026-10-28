@@ -1,0 +1,22 @@
+{
+  "name": "Local notes API",
+  "brief": "Build a local-only Python notes API with persistent SQLite storage and comprehensive tests. Do not deploy or use paid services.",
+  "tasks": [
+    {
+      "key": "core",
+      "title": "Implement and test the notes API",
+      "spec": "Create a FastAPI app with GET /notes and POST /notes, validate nonempty note bodies, persist notes in SQLite, add pyproject.toml and tests. Test real create/list behavior, validation, and persistence across application instances. Add README installation and operating instructions. All pytest tests must pass with at least one collected test.",
+      "checks": [["python", "-m", "pytest", "-q"]],
+      "dependencies": [],
+      "priority": 50
+    },
+    {
+      "key": "delivery",
+      "title": "Complete delivery documentation and release checks",
+      "spec": "Verify the API and tests from the preceding task, add CHANGELOG.md and SECURITY.md describing local-only use, backup and restore, test commands and deployment requirements. Add a tests/test_delivery.py that asserts README.md, CHANGELOG.md, and SECURITY.md exist and contain meaningful content. Do not deploy.",
+      "checks": [["python", "-m", "pytest", "-q"]],
+      "dependencies": ["core"],
+      "priority": 10
+    }
+  ]
+}
