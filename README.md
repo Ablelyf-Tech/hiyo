@@ -1,5 +1,5 @@
-# Grofloo dashboard UI preview
+# Hiyo dashboard UI preview
 
-Built from source commit 55b97ba38a878428ec89c3099865200765999d12.
+Built from source commit c7d2afb003c17cd7400c112a2c293c48bcf1d052.
 
-This public UI preview has no connection to Codex or the private Python controller. Browser-only sample data is labeled in the interface.
+Browser-only preview. No private controller connection or live Codex execution.
