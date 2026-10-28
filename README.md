@@ -1,5 +1,5 @@
-# Hiyo dashboard UI preview
+# Hiyo AI Automation OS — public product preview
 
-Built from source commit c7d2afb003c17cd7400c112a2c293c48bcf1d052.
+Built from source 2fcb1c653d654e9d0fdbdbedc02ea6d2bede6e70.
 
-Browser-only preview. No private controller connection or live Codex execution.
+Industry-adaptive workflows, departmental intelligence, universal connector setup, human approvals and recorded local outcomes. Browser-only preview; AI/provider calls, secure device sync and the private control plane do not run on GitHub Pages. No production customer data or credentials are included.
