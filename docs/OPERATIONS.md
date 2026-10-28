@@ -1,3 +1,5 @@
+This guide covers the engineering controller. For daily business workflows and cloud sync, see [DEVICE.md](DEVICE.md) and [PRODUCTION.md](PRODUCTION.md).
+
 # Operations and delivery
 
 ## Prepare a project

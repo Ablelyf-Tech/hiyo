@@ -39,3 +39,7 @@ Publish **only the contents of `dashboard/dist-preview/`**, plus an empty `.noje
 - Both the public-preview and private-app production builds pass.
 - Chromium smoke checks pass: no login needed for preview, task creation, persistence on reload, preview-only evidence, disabled worker start, no controller API requests, no JavaScript errors, and no horizontal overflow at 390px.
 - Public GitHub Pages deployment is unverified until GitHub enables and serves the branch.
+
+## Hiyo 0.2 platform update
+
+The default preview is now the cross-industry business platform. Industry templates, local browser transformations, approvals, workflow construction and evidence work in browser storage. Provider calls, secure device enrollment, GCP identity and computer scheduling need the installed/deployed services; they do not execute from GitHub Pages. Engineering remains a navigation module. The current preview suite contains 11 tests.

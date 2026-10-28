@@ -10,3 +10,11 @@ dashboard/dist/
 *.egg-info/
 playwright-report/
 dashboard/dist-preview/
+dashboard/dist-cloud/
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+terraform.tfvars
+*.auto.tfvars
+hiyo-enrollment.json

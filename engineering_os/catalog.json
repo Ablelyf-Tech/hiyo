@@ -1,0 +1,556 @@
+{
+  "industries": [
+    {
+      "id": "general",
+      "name": "All industries",
+      "description": "Shared operations for every business"
+    },
+    {
+      "id": "retail",
+      "name": "Retail & commerce",
+      "description": "Orders, customers, inventory, and loyalty"
+    },
+    {
+      "id": "healthcare",
+      "name": "Healthcare",
+      "description": "Administrative intake and appointment operations"
+    },
+    {
+      "id": "finance",
+      "name": "Financial services",
+      "description": "Reconciliation and analyst preparation"
+    },
+    {
+      "id": "manufacturing",
+      "name": "Manufacturing",
+      "description": "Quality, procurement, and production operations"
+    },
+    {
+      "id": "real-estate",
+      "name": "Real estate",
+      "description": "Listings, lead qualification, and property operations"
+    },
+    {
+      "id": "education",
+      "name": "Education",
+      "description": "Admissions, learning operations, and student services"
+    },
+    {
+      "id": "logistics",
+      "name": "Logistics",
+      "description": "Shipment exceptions and carrier coordination"
+    },
+    {
+      "id": "hospitality",
+      "name": "Hospitality",
+      "description": "Guest services and reservation operations"
+    },
+    {
+      "id": "professional",
+      "name": "Professional services",
+      "description": "Client onboarding, projects, and knowledge work"
+    }
+  ],
+  "departments": [
+    "Sales",
+    "Marketing",
+    "Customer support",
+    "Finance",
+    "Operations",
+    "Human resources",
+    "IT & engineering",
+    "Compliance"
+  ],
+  "templates": [
+    {
+      "id": "lead-intake",
+      "name": "Lead intake & qualification",
+      "industry": "general",
+      "department": "Sales",
+      "description": "Turn a new inquiry into a structured sales brief.",
+      "example": {
+        "name": "Morgan",
+        "company": "Acme",
+        "request": "We need help automating our onboarding."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${intake}"
+        }
+      ]
+    },
+    {
+      "id": "support-triage",
+      "name": "Customer support triage",
+      "industry": "retail",
+      "department": "Customer support",
+      "description": "Prepare a support case and a human-reviewed response.",
+      "example": {
+        "name": "Morgan",
+        "order": "ORD-2048",
+        "request": "My order arrived with a missing item."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "draft",
+          "kind": "ai",
+          "name": "Prepare an AI draft",
+          "template": "Prepare a concise operational summary and proposed next steps. Do not take actions or make regulated decisions. Source: ${intake}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${draft}"
+        }
+      ]
+    },
+    {
+      "id": "inventory-alert",
+      "name": "Inventory exception brief",
+      "industry": "retail",
+      "department": "Operations",
+      "description": "Prepare a replenishment request for approval.",
+      "example": {
+        "name": "Warehouse team",
+        "company": "North warehouse",
+        "request": "Item SKU-104 has 8 units remaining; reorder threshold is 20."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${intake}"
+        }
+      ]
+    },
+    {
+      "id": "patient-intake",
+      "name": "Administrative patient intake",
+      "industry": "healthcare",
+      "department": "Operations",
+      "description": "Prepare administrative intake notes for authorized staff. No diagnosis or clinical decisions.",
+      "example": {
+        "name": "Sample patient",
+        "company": "Sample clinic",
+        "request": "Request an appointment next Tuesday. Sample data only."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "draft",
+          "kind": "ai",
+          "name": "Prepare an AI draft",
+          "template": "Prepare a concise operational summary and proposed next steps. Do not take actions or make regulated decisions. Source: ${intake}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${draft}"
+        }
+      ]
+    },
+    {
+      "id": "invoice-review",
+      "name": "Invoice review preparation",
+      "industry": "finance",
+      "department": "Finance",
+      "description": "Create an invoice review brief without moving money.",
+      "example": {
+        "name": "Finance team",
+        "company": "Example vendor",
+        "request": "Invoice INV-108: amount 1200, purchase order PO-91. Verify supporting records."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${intake}"
+        }
+      ]
+    },
+    {
+      "id": "quality-incident",
+      "name": "Quality incident routing",
+      "industry": "manufacturing",
+      "department": "Operations",
+      "description": "Structure a quality incident for review before corrective action.",
+      "example": {
+        "name": "Shift supervisor",
+        "company": "Production line B",
+        "request": "Batch B-217 has a dimensional variance. Review before release."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "draft",
+          "kind": "ai",
+          "name": "Prepare an AI draft",
+          "template": "Prepare a concise operational summary and proposed next steps. Do not take actions or make regulated decisions. Source: ${intake}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${draft}"
+        }
+      ]
+    },
+    {
+      "id": "property-lead",
+      "name": "Property lead follow-up",
+      "industry": "real-estate",
+      "department": "Sales",
+      "description": "Draft a property inquiry summary for the sales team.",
+      "example": {
+        "name": "Morgan",
+        "company": "Sample real estate team",
+        "request": "Interested in a two-bedroom property near transit."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "draft",
+          "kind": "ai",
+          "name": "Prepare an AI draft",
+          "template": "Prepare a concise operational summary and proposed next steps. Do not take actions or make regulated decisions. Source: ${intake}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${draft}"
+        }
+      ]
+    },
+    {
+      "id": "admissions",
+      "name": "Admissions inquiry routing",
+      "industry": "education",
+      "department": "Operations",
+      "description": "Prepare an admissions inquiry for the right team.",
+      "example": {
+        "name": "Sample applicant",
+        "company": "Sample college",
+        "request": "Information about the next part-time program intake."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${intake}"
+        }
+      ]
+    },
+    {
+      "id": "shipment-exception",
+      "name": "Shipment exception handling",
+      "industry": "logistics",
+      "department": "Operations",
+      "description": "Create an exception record and a reviewable resolution brief.",
+      "example": {
+        "name": "Dispatch team",
+        "company": "Sample carrier",
+        "request": "Shipment SH-109 is delayed due to a route closure."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "draft",
+          "kind": "ai",
+          "name": "Prepare an AI draft",
+          "template": "Prepare a concise operational summary and proposed next steps. Do not take actions or make regulated decisions. Source: ${intake}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${draft}"
+        }
+      ]
+    },
+    {
+      "id": "guest-request",
+      "name": "Guest request coordination",
+      "industry": "hospitality",
+      "department": "Customer support",
+      "description": "Prepare and approve a guest service action plan.",
+      "example": {
+        "name": "Sample guest",
+        "company": "Sample hotel",
+        "request": "Late check-in and an accessible room request."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${intake}"
+        }
+      ]
+    },
+    {
+      "id": "client-onboarding",
+      "name": "Client onboarding checklist",
+      "industry": "professional",
+      "department": "Operations",
+      "description": "Turn a client brief into an onboarding record and approval.",
+      "example": {
+        "name": "Morgan",
+        "company": "Acme",
+        "request": "New consulting engagement starts next month."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${intake}"
+        }
+      ]
+    },
+    {
+      "id": "campaign-brief",
+      "name": "Campaign brief drafting",
+      "industry": "general",
+      "department": "Marketing",
+      "description": "Draft an audience and messaging brief for human approval.",
+      "example": {
+        "name": "Marketing team",
+        "company": "Acme",
+        "request": "Launch a new service for small business owners."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "draft",
+          "kind": "ai",
+          "name": "Prepare an AI draft",
+          "template": "Prepare a concise operational summary and proposed next steps. Do not take actions or make regulated decisions. Source: ${intake}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${draft}"
+        }
+      ]
+    },
+    {
+      "id": "employee-onboarding",
+      "name": "Employee onboarding preparation",
+      "industry": "general",
+      "department": "Human resources",
+      "description": "Prepare a human-reviewed onboarding checklist. No hiring or employment decisions.",
+      "example": {
+        "name": "Sample employee",
+        "company": "Acme",
+        "request": "Prepare first-week onboarding for a new team member."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${intake}"
+        }
+      ]
+    },
+    {
+      "id": "policy-review",
+      "name": "Policy review assistant",
+      "industry": "general",
+      "department": "Compliance",
+      "description": "Prepare a document review brief without legal conclusions.",
+      "example": {
+        "name": "Operations team",
+        "company": "Acme",
+        "request": "Review the new vendor policy and flag sections for a human reviewer."
+      },
+      "steps": [
+        {
+          "id": "intake",
+          "kind": "transform",
+          "name": "Structure the request",
+          "template": "Request from ${name} at ${company}: ${request}"
+        },
+        {
+          "id": "draft",
+          "kind": "ai",
+          "name": "Prepare an AI draft",
+          "template": "Prepare a concise operational summary and proposed next steps. Do not take actions or make regulated decisions. Source: ${intake}"
+        },
+        {
+          "id": "review",
+          "kind": "approval",
+          "name": "Human review",
+          "template": "Review the proposed outcome before it is recorded."
+        },
+        {
+          "id": "record",
+          "kind": "record",
+          "name": "Save the approved outcome",
+          "template": "${draft}"
+        }
+      ]
+    }
+  ]
+}

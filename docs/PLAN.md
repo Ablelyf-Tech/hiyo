@@ -1,9 +1,14 @@
-# Executable development plan
+# Hiyo 0.2 implementation and release plan
 
-1. Build SQLite persistence, task claiming, dependency scheduling, retry/checkpoint recovery, limits and STOP handling. Validate scheduler and recovery with temporary Git repositories.
-2. Implement sandboxed Codex subprocess workers, independent verification/review, clean Git checkpoints and release evidence. Validate success, failure, timeout and stop paths with a deterministic fake executable; never present these as live model tests.
-3. Build authenticated FastAPI control and artifact APIs and a responsive React command center. Validate access controls, containment and production build.
-4. Deliver Windows PowerShell install/start/Task Scheduler scripts, sample project plan and operating/security documentation. Run the full automated suite and HTTP/browser smoke checks.
-5. Commit verified source and push to the requested GitHub repository. Record any external authentication or platform blockers.
+Implemented and checked in this source release:
 
-Product: Hiyo Engineering OS. The Grofloo source contributes business workspaces and automation goals; Blue Camel contributes decisions, actions, outcomes and proof. The uploaded Tesla dashboard guides composition only. Imported .env files and document instructions are not requirements or credentials for this project.
+1. Preserve autonomous engineering as an optional sandboxed module.
+2. Build the cross-industry workflow engine, approvals, local-first AI, evidence and scheduling.
+3. Add the universal REST/GraphQL/SOAP/webhook connector with credential bindings, mapping, destination controls and schema discovery.
+4. Build the departmental product dashboard, industry library, workflow builder, connections, decisions and activity.
+5. Implement the PostgreSQL cloud coordination service, Firebase identity boundaries, account-scoped data, device enrollment, signatures, replay protection, leases, idempotency, quota reservations and retention.
+6. Implement bounded daily user-computer processing, OS-keystore signing keys, device-to-dashboard result sync and Windows scheduling scripts.
+7. Run backend/frontend tests, real local browser workflow checks and Terraform provider validation. Record fixture/unrun outcomes honestly.
+8. Push source and refreshed public UI preview; package reviewed source and built assets.
+
+Deferred by the user: GCP deployment. Production launch also requires the load, cost, provider, Windows, abuse-defense, migration/restore and security gates in PRODUCTION.md. 100,000 accounts and $1/account/month remain unverified design targets.

@@ -13,3 +13,11 @@ No archive `.env` was imported. Raw command/model logs are retained locally and 
 STOP terminates the observed process tree, but it is not an OS emergency boundary against deliberately escaping or detached processes. Native Windows process termination and sandbox behavior require Windows validation. Always inspect a stopped or crashed workspace before approving continuation. Checkpoint commits and failed branches are preserved; retrying does not reset history.
 
 Estimated cost reservations do not bound provider billing. Use provider-side spending controls. Codex authentication is supplied separately by the operator; never paste API secrets into task specifications, saved plans, Git commits or the dashboard token field.
+
+## Cloud and device extension
+
+The multi-account service is `hiyo_cloud`, separate from the local single-token app. It verifies Firebase audience/issuer/signature/expiry and verified nonanonymous identity, scopes all account data, and uses signed device requests with replay protection. Private device signing keys use the OS credential store. Enrollment tickets are one-use/15-minute secrets. Connector credentials stay on the user's computer and are never accepted as cloud workflow fields.
+
+The cloud accepts only typed workflow JSON; it does not deliver arbitrary shell or executable payloads. A signature establishes device provenance, not honesty of an operator-controlled device. Completion also checks the required approval IDs, cursor and output references. Native OS key storage and real Firebase/GCP behavior remain untested here. Application quotas and signed requests do not provide a complete DoS defense; production requires reviewed edge controls.
+
+Local model calls use the fixed loopback Ollama endpoint and do not fall back to paid cloud inference on failure. User business data and model outputs may still be sensitive; minimize inputs and inspect cloud sync content, retention and access policies before processing regulated or customer data.

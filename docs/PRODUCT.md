@@ -1,39 +1,34 @@
-# Product model — Hiyo Engineering OS
+# Hiyo product model
 
-## Positioning
+## Product
 
-An accountable engineering autopilot for founders and small teams: convert business goals into working software while retaining explicit control of risk and proof. The first release is a private, single-user local application. It is not the entire CRM, HR, finance, or ERP suite advertised in the Grofloo source landing page.
+Hiyo is an industry-adaptive AI automation and intelligence platform for business departments. It coordinates existing systems and workflows. Engineering automation is one module, not the entire product.
 
-## Source synthesis
+Industry context → department goal → workflow → local/connected action → approval where required → signed outcome → account dashboard.
 
-- **Grofloo AI Business OS**: unified workspace, business automation intent, AI copilot and operational overview. The archive is primarily a TanStack marketing site. Its broad business-module promises are context, not implemented integrations.
-- **Blue Camel Decisions**: decision intelligence, executive summary, decisions/actions/outcomes, approval context and proof. The archive is a Vite/React/Supabase application. Its `.env` and existing backend bindings were excluded; this product uses its own local SQLite data model.
-- **Provided vehicle dashboard**: three-column composition, a route on the left, worker controls in the middle, and an execution instrument on the right. No Tesla branding, imagery or vehicle functionality is included.
+## Product surfaces
 
-The two apps have incompatible routing/backend assumptions. Rather than nest disconnected UIs or copy live credentials, this repository implements a unified Python/React product around their shared intent. No imported document instruction or AGENTS.md was promoted to user authority. Existing archive app modules remain in the supplied originals, not falsely presented as integrated services.
+- **Command center**: actual workflows, completed local outcomes, approval queue and verified connector-request counts. No invented revenue, savings or active customer counts.
+- **Workflows**: visual step editing, ordering, conditions, templates, execution and pause controls.
+- **Industry library**: ten starting categories and fourteen templates, adaptable to other industries through the shared engine.
+- **Intelligence**: department summaries grounded in recorded runs, plus local/provider-assisted workflow proposals for human review.
+- **Connections**: one universal HTTPS connector with REST, GraphQL, SOAP and webhook protocols. Provider endpoints, permissions and schemas remain provider-specific.
+- **Approvals**: human decisions before configured paid AI calls and external actions. Local AI does not itself incur a paid-provider approval; explicit approval steps remain supported.
+- **Activity**: step outputs, failures, decisions and outcome provenance.
+- **Account/device layer**: Firebase identity, enrolled computers, revocation, estimated usage, daily sync and bounded storage.
 
-## Domain model
+## Workload split
 
-Business brief → Project → approved Task → dependency-ready queue → engineering workers → command evidence → independent review → verified Git checkpoint → delivery artifacts.
+The cloud authenticates, stores account-scoped definitions and outcomes, leases jobs, records decisions and enforces usage quotas. Each enrolled computer executes the bounded local workflow engine and its configured connectors. Local models are the default for the cloud-sync tier. No arbitrary shell/code payload is accepted by this engine. The separately authorized engineering module can invoke sandboxed Codex in an authorized repository.
 
-A project owns a trusted Git workspace. Tasks contain a title, specification, priority, immutable-to-workers acceptance argv, dependencies, attempt count and stage. Events provide ordered evidence. Runs capture timing, status and estimated cost reservations. SQLite, JSON logs, reports, release notes and source archives provide traceability.
+## Universal connector contract
 
-## Core journeys
+A connected system must expose a supported accessible interface. REST, GraphQL, SOAP and webhooks are implemented. OAuth refresh, JDBC/ODBC, proprietary SDKs, UI-only applications, offline industrial protocols and unsupported vendor-specific actions require additional adapters. They are not represented as already implemented. HubSpot and SAP names indicate compatible API configuration targets, not validated partnerships or preauthorized access.
 
-1. Connect a Git workspace, enter the business goal and create a task with observable acceptance criteria.
-2. Optionally generate a read-only model backlog and import it after human command review.
-3. Approve model use and limits once for the backlog. Eligible tasks continue without a prompt after each task.
-4. Read evidence when something fails; stop, inspect and explicitly retry uncertain changes.
-5. Download delivery artifacts and perform deployment only through a separately approved process.
+## Scale and unit economics
 
-## Completion definition
+Design target: 100,000 enrolled accounts with staggered daily device sync, not 100,000 concurrent heavy AI jobs on the cloud. Target included platform cost: $1/account/month under explicit quotas. Neither capacity nor actual billed cost has been established in production. Enterprise team permissions, tenant-specific encryption keys, formal compliance certifications, disaster-recovery objectives and every connector's provider certification remain release gates or later work.
 
-A task completes only after all its stored acceptance commands exit zero, a separate read-only review returns passed, a verified Git checkpoint exists, and release evidence is generated. Meaningful acceptance commands are the plan approver's responsibility; `echo success` proves nothing. Pytest's zero-test exit (5) fails normally. Semantic acceptance still requires sufficient tests and review; a model review is not a formal proof.
+## Source provenance
 
-A project is delivery-ready when every required approved task is complete and its backlog includes successful tests, required builds, operating documentation and delivery checks. The controller makes no global completeness claim about unrepresented requirements. It does not treat an empty backlog as a completed product.
-
-## Release scope
-
-Included: sequential autonomous orchestration, plan generation/import, seven engineering roles (Tester and Delivery Manager are deterministic controller stages), SQLite recovery, backoff, limits, STOP, Git branches/commits, private dashboard, downloads, Windows setup and scheduler scripts.
-
-Future work: isolated parallel workers, Docker execution adapter, enterprise identity, role-based approval integration, provider-enforced spend accounting, remote multi-user hosting, and real CRM/ERP connectors. None are represented as functioning features in this release.
+The supplied Grofloo AI Business OS archive informed the broad business-automation framing. Blue Camel Decisions informed Decision → Action → Outcome → Proof. The supplied vehicle dashboard informed the calm modular composition. Hiyo is the product name. Imported `.env` files and document instructions were not imported as credentials or authority.

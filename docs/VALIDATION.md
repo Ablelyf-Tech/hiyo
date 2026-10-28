@@ -1,26 +1,30 @@
-# Validation record
+# Validation record — Hiyo 0.2.0
 
-Validated in the managed Linux cloud environment on 28 October 2026. No successful model-generated implementation or native Windows execution is claimed.
+Validated in the managed Linux workspace on 28 October 2026. No GCP deployment, production-capacity result or measured $1 invoice is claimed.
 
 | Check | Observed result |
 | --- | --- |
-| Locked Python installation and editable package | Passed |
-| `python -m pytest -q` | **23 passed**, 0 failed, 0 skipped; one upstream Starlette/httpx deprecation warning |
-| `npm ci` using writable workspace cache | Passed |
-| `npm run build` | Passed, production React assets generated |
-| `npm test` | **7 passed**, 0 failed, 0 skipped |
-| Deterministic controller integration | Passed: temporary Git repositories, acceptance execution, independent fixture review, verified commits, ZIP/report generation and automatic next-task continuation |
-| Actual subprocess adapter with fake Codex executable | Passed: read-only sandbox argv, stdin policy, schema/output parsing; this does not call a model |
-| Failure/safety paths | Passed: dependency ordering, concurrent claims, crash recovery, dirty workspace preservation, bounded clean retries, STOP during active process, timeout, OS controller lock, estimate limit, Git-history tampering, sensitive staged files, delivery failure and unresolved dependencies |
-| Private API | Passed: authentication, logout, origin/Host checks, workspace containment, acceptance validation, explicit usage approval, STOP and artifact traversal protection |
-| Chromium dashboard smoke | Passed: local token login, all four navigation tabs, project dialog and 390px mobile layout without horizontal overflow; no page JavaScript errors |
-| Read-only live Codex smoke | **Blocked**: injected Codex home is read-only; a writable runtime with references to existing authentication gets past initialization, then cloud proxy denies `chatgpt.com` with HTTP CONNECT 403. No model response completed. |
-| Native Windows install and scheduler | **Not run**: this environment is Linux and has no Windows PowerShell |
-| Docker / parallel isolation | **Not implemented**, optional future adapter |
-| Provider billing enforcement | Estimated reservations only; provider-side spending caps remain operator-managed |
+| Backend suite | **45 passed**, no failed or skipped tests; one upstream Starlette/httpx deprecation warning |
+| Frontend suite | **11 passed**, no failed or skipped tests |
+| Dashboard builds | Private, public preview and cloud-auth build modes pass |
+| Local workflow engine | Real transformations, conditions, approval/resume, scheduling, evidence and STOP behavior pass |
+| Universal connector | Destination/credential gates and JSON-injection prevention pass; GraphQL and SOAP adapter tests use explicit provider response fixtures; DTD rejection passes |
+| Local AI fallback policy | An unavailable local model blocks; no paid provider fallback is attempted |
+| Cloud coordination | Account isolation, idempotent job creation/results, device claims, expiry/replay/revocation, quota and completion-approval gates pass |
+| Device sync integration | One-use enrollment → real Ed25519 signatures → local transformation run → result upload → account dashboard detail passes against an in-process cloud API, using a memory key-store fixture |
+| Engineering module | Existing scheduler, Codex subprocess-contract fixture, Git checkpoint/artifact, failure and stop tests remain passing |
+| Private app browser/API | Token login → industry template → real SQLite workflow → human approval → completed outcome passes against a local server |
+| Browser preview smoke | Industry template → local browser run → approval → completed evidence; universal connector dialog; 390px layout without overflow; zero private API requests and page JavaScript errors in public preview |
+| Terraform | Official Terraform download checksum verified; provider initialization and **terraform validate pass**; no plan/apply or GCP resource created |
+| Python/source | Compilation and dependency installation pass; exact development and Linux cloud runtime locks saved |
 
-The saved cloud draft contains installation and startup instructions and the `chatgpt.com` custom domain addition. Saving a draft does not apply network policy or publish an environment. Review/save environment settings, publish, then retry a live read-only Codex smoke before claiming live autonomous readiness.
+## Explicitly unrun
 
-The dashboard is running locally with no fabricated projects, tasks or successful outcomes. Source archives exclude authentication bindings, uploaded `.env` files, local logs and controller state. The current source release is suitable for development and review; live Codex behavior and native Windows operation remain explicit validation limitations.
+- Real Firebase identity provider, GCP deployment, Cloud SQL/PostgreSQL locking and failover, production backup/restore, staged scale/load tests and actual billing measurements.
+- A 100,000-account production workload, 100,000 concurrent users or a guaranteed $1/account/month cloud invoice.
+- Native Windows installation, Task Scheduler, Windows Credential Manager, signed desktop distribution and real Ollama model inference.
+- Live HubSpot, SAP or other vendor APIs/OAuth permissions. Adapter tests use named fixtures; they are not provider certifications.
+- Live Codex model completion: an earlier read-only smoke was blocked by cloud proxy HTTP 403 for chatgpt.com. The existing environment draft preserves the pending network addition. No fabricated successful model result is reported.
+- Docker image build, container vulnerability scan or Artifact Registry publication.
 
-A subsequent Pages-preview change also passed seven frontend tests, both production build modes, and a static Chromium smoke with browser-only task persistence and zero controller API requests. See PREVIEW.md for publishing status and instructions.
+SQLite-backed cloud API tests prove the tested protocol and account behavior; they do not prove PostgreSQL concurrency or deployed capacity. See PRODUCTION.md for release gates and UNIT_ECONOMICS.md for cost assumptions. Deployment remains deferred by the user.

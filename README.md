@@ -1,98 +1,73 @@
-# Hiyo Engineering OS
+# Hiyo — AI Automation OS
 
-A private, Windows-first engineering command center powered by **Codex CLI**, Python, SQLite, FastAPI and React. It combines the Grofloo source’s business automation framing with Blue Camel's **Decision → Action → Outcome → Proof** model. The supplied vehicle dashboard informs its quiet three-column composition, route map, control tiles and execution instrument panel.
+**One intelligence engine for every industry and department.** Hiyo coordinates business workflows, connects existing systems through a universal HTTPS connector, and runs approved work on the user's computer. GCP hosts account identity, coordination, signed sync, usage accounting and the dashboard. Autonomous engineering remains an optional local module.
 
-This is an executable local controller, not a hosted SaaS. Connect trusted Git repositories, approve a task backlog and acceptance commands, then let the controller continue until it finishes or encounters a blocker or limit. No model-generated test result can substitute for an actual command exit and an independent review.
+This source release includes executable local workflows, a private API/dashboard, a PostgreSQL cloud coordination service, a signed daily device agent and reviewable GCP infrastructure. **Production deployment is deliberately deferred. Capacity for 100,000 accounts and a $1/user/month total cloud cost are targets, not verified production claims.** See [production gates](docs/PRODUCTION.md) and [unit economics](docs/UNIT_ECONOMICS.md).
 
-## Windows installation
+## What is implemented
 
-Prerequisites: Windows 10/11, Python 3.11+, Git, Node.js 22+, a current OpenAI Codex CLI supporting `exec --sandbox --output-schema`, and an authorized Codex account. Install prerequisites using their official installers. Then, from a normal PowerShell window:
+- Visual workflow builder: transformations, conditions, local AI, human approvals, connected-system actions, saved outcomes, manual/API triggers and schedules.
+- Ten starting industry categories, eight departments and fourteen adaptable workflow templates. Custom industry identifiers are supported; templates are starting points, not certified regulated-domain decisions.
+- **Hiyo Universal Connector**: REST/JSON, GraphQL, SOAP/XML and outbound webhooks; scoped environment-bound authentication; schema discovery; data mapping; destination allowlists; explicit external-action approvals. HubSpot, SAP OData and other compatible APIs use this same layer. It does not magically connect inaccessible systems or implement every provider's OAuth/schema semantics.
+- **Local-first AI** via an already-installed Ollama model. A separately approved OpenAI adapter exists for the private local app. The cloud-sync device tier uses local models with no paid cloud-model fallback.
+- Cloud account isolation, Firebase identity verification, device enrollment/revocation, Ed25519 signatures, replay protection, leased jobs, idempotent results, approval gates, retention and usage quotas.
+- A daily Windows agent: processes approved jobs locally and syncs signed results to its account dashboard. Offline work stays queued.
+- GCP Cloud Run, regional PostgreSQL, Secret Manager, IAM, Artifact Registry, retention scheduling and budget-alert Terraform.
+- Engineering controller: Codex roles, persistent SQLite queue, tests/review, retries, Git checkpoints, STOP and delivery artifacts. See [engineering module](docs/ENGINEERING.md).
+
+## View the product
+
+The [GitHub Pages preview](https://ablelyf-tech.github.io/hiyo/) uses browser-only storage. Its banner identifies sample content; local transformations and approval flows actually execute in the browser, while AI and remote connectors remain unavailable there. Publishing source is `gh-pages` → `/ (root)` in [Pages settings](https://github.com/Ablelyf-Tech/hiyo/settings/pages). A branch push is not proof Pages is enabled.
+
+## Windows local installation
+
+Prerequisites: Windows 10/11, Python 3.11+, Git and Node.js 22+. Use their official installers.
 
 ```powershell
 git clone https://github.com/Ablelyf-Tech/hiyo.git
 cd hiyo
 .\scripts\install.ps1
-npm install -g @openai/codex
-codex login
 .\scripts\start.ps1 -ProjectsRoot C:\Projects
 ```
 
-The dashboard binds **only to 127.0.0.1:8787**. Read `%LOCALAPPDATA%\Hiyo\dashboard-token` locally and paste it into the login form. This is a local authentication token; never publish it. Create an existing Git repository under `C:\Projects`, configure your Git author, make an initial commit, and connect it from the dashboard. Keep this controller checkout and its state outside managed project workspaces.
+Open the local app at port 8787. Its access token is stored in `%LOCALAPPDATA%\Hiyo\dashboard-token`; read it locally and never publish it. The API binds to loopback. The default surface is the business platform; **Engineering module** opens the coding controller. To use local AI, install Ollama and a suitable model separately; Hiyo never silently downloads a model or falls back to paid inference. Set `HIYO_LOCAL_MODEL` if using a different local model.
 
-Native Windows Codex sandbox support depends on the installed Codex version and Windows setup. If the CLI cannot establish its sandbox, execution fails; never use bypass flags. WSL2 is an alternative, with the controller, Git, Python and Codex all installed inside the same Linux environment. Native Windows installation and Task Scheduler execution still require validation on Windows; development validation here ran on Linux.
-
-## Linux / cloud development
+Linux/cloud development: run `./scripts/setup.sh`, then:
 
 ```bash
-./scripts/setup.sh
 .venv/bin/python -m engineering_os.cli --home /workspace/hiyo-state serve \
-  --projects-root /workspace/projects --dashboard dashboard/dist
+  --projects-root /workspace/projects --dashboard /workspace/hiyo/dashboard/dist
 ```
 
-The setup script uses `/workspace/.npm-cache` in the cloud; elsewhere set an appropriate npm cache or run `npm ci` directly. Development hot reload: run `npm run dev` in `dashboard/` alongside the API; Vite proxies `/api` to the local API. No external fonts or services are required for the dashboard.
+## Daily computer processing
 
-## Run an approved backlog
-
-Use the dashboard to create tasks, or review `examples/plan.json` and import a plan:
+After a future GCP deployment, sign in to the cloud dashboard and choose **Enroll computer**. Download the one-use, 15-minute enrollment ticket privately. On that computer:
 
 ```powershell
-.\.venv\Scripts\python.exe -m engineering_os.cli --home "$env:LOCALAPPDATA\Hiyo" import-plan examples\plan.json --workspace C:\Projects\notes
-.\.venv\Scripts\python.exe -m engineering_os.cli --home "$env:LOCALAPPDATA\Hiyo" run --approve-codex-usage --max-seconds 3600 --max-calls 20 --estimated-budget 5
+.\scripts\install-device.ps1 -TicketFile C:\Private\hiyo-enrollment.json -DeviceName 'My work computer'
 ```
 
-For a generated backlog, write a product brief to a text file and run `propose-plan --workspace <repo> --brief <file> --output <outside-repo.json> --approve-codex-usage`. This uses a read-only Codex Planner. **Review all proposed commands before `import-plan`**; generation does not authorize execution. Dependencies must reference earlier task keys, so cycles cannot enter an imported plan.
+This explicitly enrolls the device and registers **Hiyo Daily Device Sync**, default 09:00 local time with up to one hour of jitter. Keys use the OS credential store. The user must be logged in and the computer available; missed jobs remain queued. The daily run handles at most 32 jobs and 30 minutes of processing. Full operating details: [device agent](docs/DEVICE.md).
 
-Every task must have nonempty noninteractive acceptance commands represented as argv arrays, e.g. `[["python", "-m", "pytest", "-q"], ["npm.cmd", "run", "build"]]`. On native Windows use `npm.cmd` and `npx.cmd`; avoid PowerShell wrappers when direct executables work. Test dependencies must already be installed in the environment used by the controller. Run from the intended activated environment. Starting the dashboard does not automatically start model work.
+## Cloud deployment — later
 
-## Execution lifecycle
+Cloud backend entry point: `hiyo_cloud.factory:app`. Container: `Dockerfile.cloud`. Infrastructure: `infra/gcp/`.
 
-1. SQLite atomically claims the highest-priority eligible task after its dependencies complete.
-2. Read-only **Planner** and **Architect** inspect requirements and the repository.
-3. **Builder** runs Codex with `workspace-write`, approval policy `never`, and sandbox network access disabled. It must stop when an operation requires approval.
-4. **Tester** executes the human-approved argv commands independently, captures exit codes and bounded output, and records evidence.
-5. If checks fail, **Debugger** attempts repairs and the controller reruns the acceptance checks.
-6. A separate read-only **Reviewer** inspects the final diff. Only a passed review and passed commands permit a checkpoint.
-7. **Delivery Manager** creates a Git commit, source ZIP, test report and release note. The next eligible task starts automatically.
+No cloud project, billable resource, database, identity provider or production service has been created. Follow [PRODUCTION.md](docs/PRODUCTION.md) for secret setup, migration, Firebase configuration, load tests, backups and release approval. Do not treat `terraform validate` or local SQLite-backed cloud tests as a PostgreSQL capacity test.
 
-The default mode is sequential with an OS-level single-controller lock. Each task gets a unique Git branch. Branches build on the currently checked-out verified history; the controller does not merge or push. Optional parallel execution and Docker-based isolation are **not implemented**. Use separate controller instances with separate state directories and nonoverlapping repositories if running independent projects; never share a working tree.
+## Cost target
 
-## Limits and stopping
+The included usage profile reserves an estimated $0.25/account/month plus $0.0005/job, with at most 1,000 jobs, 64 MiB combined sync/dashboard bytes and 10,000 authenticated requests per month. Cloud paid AI is disabled. These are **application reservations and quotas, not real GCP billing measurements or a guaranteed invoice cap**. GCP budgets alert; they do not stop every charge. Device electricity, hardware and third-party licensing are not paid by Hiyo. See [cost model and launch gates](docs/UNIT_ECONOMICS.md).
 
-Default run limits: 1 hour, 600 seconds per command, 20 Codex calls, 3 task attempts, and a $5 **estimated** budget with $0.25 reserved per Codex call. Clean transient failures use exponential backoff. Dirty failures block immediately and preserve the working diff. These reservations are estimates, **not actual billing or a hard provider spending cap**. Set an account spending cap with the provider. No unknown token price or claimed free execution is assumed.
+## Tests
 
-Click emergency stop, create a `STOP` file in the state directory, or run `hiyo --home <state> stop`. Active process groups are terminated (Windows uses `taskkill /T /F`). SIGINT/SIGTERM also request shutdown for CLI workers. Inspect the workspace after a stop. Clearing STOP never starts work by itself. An interrupted running task is marked blocked at the next controller launch; inspect and commit your intended changes or repair the workspace, then explicitly retry. Logs, attempts, dependencies, verified commits, and budget reservations persist in SQLite. Budgets apply per authorized run.
-
-## Tests and evidence
-
-```powershell
-.\.venv\Scripts\python.exe -m pytest -q
+```bash
+.venv/bin/python -m pytest -q
 cd dashboard
-npm.cmd test
-npm.cmd run build
+npm test
+npm run build
 ```
 
-Backend tests use temporary Git repositories and a deterministic model replacement. One adapter test invokes a fake executable to verify CLI arguments, sandbox selection, stdin and report parsing. These are **not live model integration tests**. See `docs/VALIDATION.md` for the observed validation and its limits.
+Build modes: normal private application; `VITE_DEMO_MODE=true` for Pages; `VITE_CLOUD_MODE=true` with Firebase public configuration for cloud sign-in. Never set both flags. [Validation record](docs/VALIDATION.md) distinguishes test fixtures, real local executions, unrun provider checks and production limitations.
 
-## Windows restart support
-
-```powershell
-.\scripts\register-scheduler.ps1 -ProjectsRoot C:\Projects
-```
-
-Registers a least-privilege, current-user logon task with three one-minute restart attempts. It restarts the private dashboard, not a paid run or an interrupted task. Do not enable elevated privileges or disable PowerShell execution policy. If your organization's policy blocks scripts, request its normal signed-script process. Task registration is an explicit local action; no task is registered during installation.
-
-See [product model](docs/PRODUCT.md), [architecture](docs/ARCHITECTURE.md), [security boundaries](docs/SECURITY.md), and [operations](docs/OPERATIONS.md).
-
-## Source release packaging
-
-After building, run `python scripts/package_release.py <outside-checkout.zip>`. The ZIP includes tracked source and built dashboard assets, with a SHA-256 sidecar. It excludes local state, tokens, virtual environments and package caches.
-
-In managed cloud environments where the injected Codex home is read-only, `HIYO_CODEX_HOME` can point to a writable Codex runtime directory. The controller uses it only for Codex child processes; authentication should remain an existing injected binding. Do not copy credentials into source or logs. This override is unnecessary for a normal writable Windows user profile.
-
-## Public dashboard preview
-
-A browser-only preview is prepared on the `gh-pages` branch. It includes clearly labeled sample tasks and saves edits in your browser; it never connects to the private controller or runs Codex. See [Pages setup and preview limits](docs/PREVIEW.md). The expected address is `https://ablelyf-tech.github.io/hiyo/` after Pages is enabled for the branch in repository settings.
-
-### Existing installations
-
-The product is named Hiyo. New installations use the `hiyo` command and Hiyo state paths. If upgrading an earlier development snapshot, keep using `--home <existing-state-directory>` (or PowerShell `-StateDirectory`) to preserve your queue and token; do not delete or move existing state blindly. The old `GROFLOO_CODEX_HOME` override remains accepted as a compatibility fallback, while new setups use `HIYO_CODEX_HOME`. Existing Windows scheduled tasks are not renamed automatically; remove the old task deliberately before registering Hiyo.
+More: [product model](docs/PRODUCT.md) · [architecture](docs/ARCHITECTURE.md) · [universal connector](docs/UNIVERSAL_CONNECTOR.md) · [security](docs/SECURITY.md).

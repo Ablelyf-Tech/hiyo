@@ -10,7 +10,7 @@ py -3 -m venv .venv
 if ($LASTEXITCODE -ne 0) { throw 'Python virtual environment creation failed' }
 & .\.venv\Scripts\python.exe -m pip install -r requirements-dev.lock
 if ($LASTEXITCODE -ne 0) { throw 'Locked Python dependency installation failed' }
-& .\.venv\Scripts\python.exe -m pip install --no-deps -e '.[test]'
+& .\.venv\Scripts\python.exe -m pip install --no-deps -e '.[test,cloud,device]'
 if ($LASTEXITCODE -ne 0) { throw 'Python dependency installation failed' }
 Push-Location dashboard
 try {

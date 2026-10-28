@@ -30,10 +30,16 @@ import {
 import { roles, metrics, duration } from "./model";
 import "./style.css";
 import { previewApi } from "./preview";
+import { automationPreviewApi } from "./automation-preview";
+import Platform from "./Platform";
+const CloudShell = React.lazy(() => import("./CloudShell"));
 const IS_PREVIEW = import.meta.env.VITE_DEMO_MODE === "true";
 
 async function api(path, body) {
-  if (IS_PREVIEW) return previewApi(path, body);
+  if (IS_PREVIEW)
+    return path.startsWith("/automation")
+      ? automationPreviewApi(path, body)
+      : previewApi(path, body);
   const response = await fetch("/api" + path, {
     method: body === undefined ? "GET" : "POST",
     headers: { "Content-Type": "application/json" },
@@ -68,7 +74,8 @@ function App() {
     [projectId, setProjectId] = useState(""),
     [selected, setSelected] = useState(null),
     [busy, setBusy] = useState(false),
-    [tick, setTick] = useState(Date.now());
+    [tick, setTick] = useState(Date.now()),
+    [surface, setSurface] = useState("platform");
   const refresh = async () => {
     try {
       setData(await api("/state"));
@@ -158,13 +165,13 @@ function App() {
         <div className="login-mark">
           h<span>·</span>
         </div>
-        <p className="eyebrow">HIYO / ENGINEERING OS</p>
+        <p className="eyebrow">HIYO / AI AUTOMATION OS</p>
         <h1>
-          Your engineering.
+          Your business.
           <br />
           On autopilot.
         </h1>
-        <p>A private command center for decisions, execution, and proof.</p>
+        <p>One intelligence engine for every industry and department.</p>
         <form onSubmit={login}>
           <label htmlFor="token">Dashboard access token</label>
           <input
@@ -191,8 +198,23 @@ function App() {
         </small>
       </div>
     );
+  if (surface === "platform")
+    return (
+      <Platform
+        api={api}
+        preview={IS_PREVIEW}
+        onEngineering={() => setSurface("engineering")}
+        onLogout={() => action("/logout")}
+      />
+    );
   return (
     <div className="app">
+      <button
+        className="engineering-return"
+        onClick={() => setSurface("platform")}
+      >
+        ← Back to Hiyo platform
+      </button>
       <header>
         <a className="brand" href="#" onClick={() => setTab("Overview")}>
           h<span>·</span>
@@ -1047,4 +1069,12 @@ function App() {
     </div>
   );
 }
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(
+  import.meta.env.VITE_CLOUD_MODE === "true" ? (
+    <React.Suspense fallback={<p>Loading Hiyo…</p>}>
+      <CloudShell />
+    </React.Suspense>
+  ) : (
+    <App />
+  ),
+);
