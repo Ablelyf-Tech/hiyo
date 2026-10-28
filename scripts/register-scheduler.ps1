@@ -1,7 +1,7 @@
 param(
     [Parameter(Mandatory=$true)][string]$ProjectsRoot,
-    [string]$StateDirectory = "$env:LOCALAPPDATA\Grofloo",
-    [string]$TaskName = 'Grofloo Engineering OS'
+    [string]$StateDirectory = "$env:LOCALAPPDATA\Hiyo",
+    [string]$TaskName = 'Hiyo Engineering OS'
 )
 $ErrorActionPreference = 'Stop'
 # Register the private dashboard only, never automatically authorize paid model runs.
@@ -16,5 +16,5 @@ $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument $Arguments
 $Trigger = New-ScheduledTaskTrigger -AtLogOn -User ([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)
 $Principal = New-ScheduledTaskPrincipal -UserId ([System.Security.Principal.WindowsIdentity]::GetCurrent().Name) -LogonType Interactive -RunLevel Limited
 $Settings = New-ScheduledTaskSettingsSet -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1) -ExecutionTimeLimit ([TimeSpan]::Zero) -MultipleInstances IgnoreNew -StartWhenAvailable
-Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Principal $Principal -Settings $Settings -Description 'Private Grofloo dashboard. Interrupted tasks require inspection before retry.'
+Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Principal $Principal -Settings $Settings -Description 'Private Hiyo dashboard. Interrupted tasks require inspection before retry.'
 Write-Host "Registered $TaskName. Remove with Unregister-ScheduledTask -TaskName '$TaskName'."

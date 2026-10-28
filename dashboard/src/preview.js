@@ -1,5 +1,5 @@
 // Public Pages preview: browser-only data. Never connects to a controller or Codex.
-const STORAGE_KEY = "grofloo-ui-preview-v1";
+const STORAGE_KEY = "hiyo-ui-preview-v1";
 export function initialPreview() {
   const created = Date.now() / 1000;
   return {
@@ -122,7 +122,11 @@ export function previewRequest(state, path, body) {
 export async function previewApi(path, body) {
   let state;
   try {
-    state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || initialPreview();
+    state =
+      JSON.parse(
+        localStorage.getItem(STORAGE_KEY) ||
+          localStorage.getItem("grofloo-ui-preview-v1"),
+      ) || initialPreview();
   } catch {
     state = initialPreview();
   }

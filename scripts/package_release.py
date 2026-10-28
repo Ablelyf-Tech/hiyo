@@ -19,10 +19,10 @@ def package(root: Path, output: Path):
             path = root / name
             if path.is_symlink() or not path.is_file():
                 raise ValueError('Unexpected tracked entry: ' + name)
-            archive.write(path, 'grofloo-engineering-os/' + name)
+            archive.write(path, 'hiyo-engineering-os/' + name)
         for path in sorted(dist.rglob('*')):
             if path.is_file() and not path.is_symlink():
-                archive.write(path, 'grofloo-engineering-os/' + str(path.relative_to(root)).replace('\\','/'))
+                archive.write(path, 'hiyo-engineering-os/' + str(path.relative_to(root)).replace('\\','/'))
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
     output.with_suffix(output.suffix+'.sha256').write_text(digest+'  '+output.name+'\n')
     return digest

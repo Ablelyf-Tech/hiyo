@@ -65,7 +65,7 @@ def create_app(home: Path, projects_root: Path, dashboard: Path | None = None):
             (store.home / 'STOP').touch()
             await asyncio.to_thread(app.state.thread.join, 5)
 
-    app = FastAPI(title='Grofloo Engineering OS', docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
+    app = FastAPI(title='Hiyo Engineering OS', docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=['localhost', '127.0.0.1', '[::1]', 'testserver'])
     app.state.store = store
     app.state.controller = None
@@ -80,7 +80,7 @@ def create_app(home: Path, projects_root: Path, dashboard: Path | None = None):
                 return Response('Cross-origin requests forbidden', status_code=403)
             if request.url.path not in ('/api/login', '/api/health'):
                 supplied = request.headers.get('x-dashboard-token', '')
-                cookie = request.cookies.get('grofloo_session', '')
+                cookie = request.cookies.get('hiyo_session', '')
                 if not (hmac.compare_digest(supplied.encode(), token.encode()) or hmac.compare_digest(cookie.encode(), session_token.encode())):
                     return Response('Authentication required', status_code=401)
         response = await call_next(request)
@@ -99,12 +99,12 @@ def create_app(home: Path, projects_root: Path, dashboard: Path | None = None):
     def login(body: Login, response: Response):
         if not hmac.compare_digest(body.token.encode(), token.encode()):
             raise HTTPException(401, 'Invalid token')
-        response.set_cookie('grofloo_session', session_token, httponly=True, samesite='strict', max_age=28800)
+        response.set_cookie('hiyo_session', session_token, httponly=True, samesite='strict', max_age=28800)
         return {'authenticated': True}
 
     @app.post('/api/logout')
     def logout(response: Response):
-        response.delete_cookie('grofloo_session')
+        response.delete_cookie('hiyo_session')
         return {'authenticated': False}
 
     @app.get('/api/state')

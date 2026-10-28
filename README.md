@@ -1,6 +1,6 @@
-# Grofloo Engineering OS
+# Hiyo Engineering OS
 
-A private, Windows-first engineering command center powered by **Codex CLI**, Python, SQLite, FastAPI and React. It combines Grofloo's business automation framing with Blue Camel's **Decision → Action → Outcome → Proof** model. The supplied vehicle dashboard informs its quiet three-column composition, route map, control tiles and execution instrument panel.
+A private, Windows-first engineering command center powered by **Codex CLI**, Python, SQLite, FastAPI and React. It combines the Grofloo source’s business automation framing with Blue Camel's **Decision → Action → Outcome → Proof** model. The supplied vehicle dashboard informs its quiet three-column composition, route map, control tiles and execution instrument panel.
 
 This is an executable local controller, not a hosted SaaS. Connect trusted Git repositories, approve a task backlog and acceptance commands, then let the controller continue until it finishes or encounters a blocker or limit. No model-generated test result can substitute for an actual command exit and an independent review.
 
@@ -17,7 +17,7 @@ codex login
 .\scripts\start.ps1 -ProjectsRoot C:\Projects
 ```
 
-The dashboard binds **only to 127.0.0.1:8787**. Read `%LOCALAPPDATA%\Grofloo\dashboard-token` locally and paste it into the login form. This is a local authentication token; never publish it. Create an existing Git repository under `C:\Projects`, configure your Git author, make an initial commit, and connect it from the dashboard. Keep this controller checkout and its state outside managed project workspaces.
+The dashboard binds **only to 127.0.0.1:8787**. Read `%LOCALAPPDATA%\Hiyo\dashboard-token` locally and paste it into the login form. This is a local authentication token; never publish it. Create an existing Git repository under `C:\Projects`, configure your Git author, make an initial commit, and connect it from the dashboard. Keep this controller checkout and its state outside managed project workspaces.
 
 Native Windows Codex sandbox support depends on the installed Codex version and Windows setup. If the CLI cannot establish its sandbox, execution fails; never use bypass flags. WSL2 is an alternative, with the controller, Git, Python and Codex all installed inside the same Linux environment. Native Windows installation and Task Scheduler execution still require validation on Windows; development validation here ran on Linux.
 
@@ -25,7 +25,7 @@ Native Windows Codex sandbox support depends on the installed Codex version and 
 
 ```bash
 ./scripts/setup.sh
-.venv/bin/python -m engineering_os.cli --home /workspace/grofloo-state serve \
+.venv/bin/python -m engineering_os.cli --home /workspace/hiyo-state serve \
   --projects-root /workspace/projects --dashboard dashboard/dist
 ```
 
@@ -36,8 +36,8 @@ The setup script uses `/workspace/.npm-cache` in the cloud; elsewhere set an app
 Use the dashboard to create tasks, or review `examples/plan.json` and import a plan:
 
 ```powershell
-.\.venv\Scripts\python.exe -m engineering_os.cli --home "$env:LOCALAPPDATA\Grofloo" import-plan examples\plan.json --workspace C:\Projects\notes
-.\.venv\Scripts\python.exe -m engineering_os.cli --home "$env:LOCALAPPDATA\Grofloo" run --approve-codex-usage --max-seconds 3600 --max-calls 20 --estimated-budget 5
+.\.venv\Scripts\python.exe -m engineering_os.cli --home "$env:LOCALAPPDATA\Hiyo" import-plan examples\plan.json --workspace C:\Projects\notes
+.\.venv\Scripts\python.exe -m engineering_os.cli --home "$env:LOCALAPPDATA\Hiyo" run --approve-codex-usage --max-seconds 3600 --max-calls 20 --estimated-budget 5
 ```
 
 For a generated backlog, write a product brief to a text file and run `propose-plan --workspace <repo> --brief <file> --output <outside-repo.json> --approve-codex-usage`. This uses a read-only Codex Planner. **Review all proposed commands before `import-plan`**; generation does not authorize execution. Dependencies must reference earlier task keys, so cycles cannot enter an imported plan.
@@ -60,7 +60,7 @@ The default mode is sequential with an OS-level single-controller lock. Each tas
 
 Default run limits: 1 hour, 600 seconds per command, 20 Codex calls, 3 task attempts, and a $5 **estimated** budget with $0.25 reserved per Codex call. Clean transient failures use exponential backoff. Dirty failures block immediately and preserve the working diff. These reservations are estimates, **not actual billing or a hard provider spending cap**. Set an account spending cap with the provider. No unknown token price or claimed free execution is assumed.
 
-Click emergency stop, create a `STOP` file in the state directory, or run `grofloo --home <state> stop`. Active process groups are terminated (Windows uses `taskkill /T /F`). SIGINT/SIGTERM also request shutdown for CLI workers. Inspect the workspace after a stop. Clearing STOP never starts work by itself. An interrupted running task is marked blocked at the next controller launch; inspect and commit your intended changes or repair the workspace, then explicitly retry. Logs, attempts, dependencies, verified commits, and budget reservations persist in SQLite. Budgets apply per authorized run.
+Click emergency stop, create a `STOP` file in the state directory, or run `hiyo --home <state> stop`. Active process groups are terminated (Windows uses `taskkill /T /F`). SIGINT/SIGTERM also request shutdown for CLI workers. Inspect the workspace after a stop. Clearing STOP never starts work by itself. An interrupted running task is marked blocked at the next controller launch; inspect and commit your intended changes or repair the workspace, then explicitly retry. Logs, attempts, dependencies, verified commits, and budget reservations persist in SQLite. Budgets apply per authorized run.
 
 ## Tests and evidence
 
@@ -87,8 +87,12 @@ See [product model](docs/PRODUCT.md), [architecture](docs/ARCHITECTURE.md), [sec
 
 After building, run `python scripts/package_release.py <outside-checkout.zip>`. The ZIP includes tracked source and built dashboard assets, with a SHA-256 sidecar. It excludes local state, tokens, virtual environments and package caches.
 
-In managed cloud environments where the injected Codex home is read-only, `GROFLOO_CODEX_HOME` can point to a writable Codex runtime directory. The controller uses it only for Codex child processes; authentication should remain an existing injected binding. Do not copy credentials into source or logs. This override is unnecessary for a normal writable Windows user profile.
+In managed cloud environments where the injected Codex home is read-only, `HIYO_CODEX_HOME` can point to a writable Codex runtime directory. The controller uses it only for Codex child processes; authentication should remain an existing injected binding. Do not copy credentials into source or logs. This override is unnecessary for a normal writable Windows user profile.
 
 ## Public dashboard preview
 
 A browser-only preview is prepared on the `gh-pages` branch. It includes clearly labeled sample tasks and saves edits in your browser; it never connects to the private controller or runs Codex. See [Pages setup and preview limits](docs/PREVIEW.md). The expected address is `https://ablelyf-tech.github.io/hiyo/` after Pages is enabled for the branch in repository settings.
+
+### Existing installations
+
+The product is named Hiyo. New installations use the `hiyo` command and Hiyo state paths. If upgrading an earlier development snapshot, keep using `--home <existing-state-directory>` (or PowerShell `-StateDirectory`) to preserve your queue and token; do not delete or move existing state blindly. The old `GROFLOO_CODEX_HOME` override remains accepted as a compatibility fallback, while new setups use `HIYO_CODEX_HOME`. Existing Windows scheduled tasks are not renamed automatically; remove the old task deliberately before registering Hiyo.

@@ -102,9 +102,10 @@ class Controller:
         options = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session': True}
         began = time.monotonic()
         child_env = None
-        if argv[0] == self.codex and os.environ.get('GROFLOO_CODEX_HOME'):
+        codex_runtime = os.environ.get('HIYO_CODEX_HOME') or os.environ.get('GROFLOO_CODEX_HOME')
+        if argv[0] == self.codex and codex_runtime:
             child_env = os.environ.copy()
-            child_env['CODEX_HOME'] = os.environ['GROFLOO_CODEX_HOME']
+            child_env['CODEX_HOME'] = codex_runtime
         with stdout.open('wb') as out, stderr.open('wb') as err:
             proc = subprocess.Popen(argv, cwd=cwd, stdin=subprocess.PIPE if stdin is not None else subprocess.DEVNULL,
                                     stdout=out, stderr=err, shell=False, env=child_env, **options)
@@ -189,7 +190,7 @@ class Controller:
         if self.git(workspace, 'status', '--porcelain'):
             raise Halt('Workspace has uncommitted changes. Inspect and checkpoint them before retrying')
         baseline = self.git(workspace, 'rev-parse', 'HEAD')
-        branch = f'grofloo/{task["id"]}-{task["attempts"]}'
+        branch = f'hiyo/{task["id"]}-{task["attempts"]}'
         self.git(workspace, 'switch', '-c', branch)
         self.store.event(task['id'], 'Controller', 'branch', branch=branch, baseline=baseline)
         prompt = f'Project: {task["brief"]}\nTask: {task["title"]}\nRequirements: {task["spec"]}\nAcceptance commands: {task["checks"]}'

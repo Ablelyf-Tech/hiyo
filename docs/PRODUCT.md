@@ -1,8 +1,8 @@
-# Product model — Grofloo Engineering OS
+# Product model — Hiyo Engineering OS
 
 ## Positioning
 
-An accountable engineering autopilot for founders and small teams: convert business goals into working software while retaining explicit control of risk and proof. The first release is a private, single-user local application. It is not the entire CRM, HR, finance, or ERP suite advertised in the Grofloo landing page.
+An accountable engineering autopilot for founders and small teams: convert business goals into working software while retaining explicit control of risk and proof. The first release is a private, single-user local application. It is not the entire CRM, HR, finance, or ERP suite advertised in the Grofloo source landing page.
 
 ## Source synthesis
 

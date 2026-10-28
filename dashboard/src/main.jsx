@@ -156,9 +156,9 @@ function App() {
     return (
       <div className="login">
         <div className="login-mark">
-          g<span>·</span>
+          h<span>·</span>
         </div>
-        <p className="eyebrow">GROFLOO / ENGINEERING OS</p>
+        <p className="eyebrow">HIYO / ENGINEERING OS</p>
         <h1>
           Your engineering.
           <br />
@@ -195,8 +195,8 @@ function App() {
     <div className="app">
       <header>
         <a className="brand" href="#" onClick={() => setTab("Overview")}>
-          g<span>·</span>
-          <b>grofloo</b>
+          h<span>·</span>
+          <b>Hiyo</b>
           <i>ENGINEERING OS</i>
         </a>
         <nav aria-label="Main navigation">
@@ -303,7 +303,7 @@ function App() {
                 : "Standing by"}
             <span className="divider" />
             <GitBranch size={14} />
-            <span>{active ? "grofloo/" + active.id : "Local workspace"}</span>
+            <span>{active ? "hiyo/" + active.id : "Local workspace"}</span>
           </div>
           <button
             className="icon-button"
@@ -749,7 +749,7 @@ function App() {
         )}
         <footer>
           <b>
-            grofloo<span>·</span>
+            Hiyo<span>·</span>
           </b>
           <span>DECIDE. BUILD. PROVE.</span>
           <button className="text-button" onClick={() => setModal("help")}>

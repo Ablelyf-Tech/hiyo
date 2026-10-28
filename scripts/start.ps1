@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory=$true)][string]$ProjectsRoot,
-    [string]$StateDirectory = "$env:LOCALAPPDATA\Grofloo",
+    [string]$StateDirectory = "$env:LOCALAPPDATA\Hiyo",
     [int]$Port = 8787
 )
 $ErrorActionPreference = 'Stop'

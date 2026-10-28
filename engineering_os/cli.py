@@ -8,8 +8,8 @@ from .controller import Controller, Limits
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Grofloo Engineering OS')
-    parser.add_argument('--home', type=Path, default=Path.home() / '.grofloo')
+    parser = argparse.ArgumentParser(description='Hiyo Engineering OS')
+    parser.add_argument('--home', type=Path, default=Path.home() / '.hiyo')
     sub = parser.add_subparsers(dest='command', required=True)
     serve = sub.add_parser('serve')
     serve.add_argument('--projects-root', type=Path, required=True)
