@@ -8,7 +8,7 @@ Validated in the managed Linux cloud environment on 28 October 2026. No successf
 | `python -m pytest -q` | **23 passed**, 0 failed, 0 skipped; one upstream Starlette/httpx deprecation warning |
 | `npm ci` using writable workspace cache | Passed |
 | `npm run build` | Passed, production React assets generated |
-| `npm test` | **3 passed**, 0 failed, 0 skipped |
+| `npm test` | **7 passed**, 0 failed, 0 skipped |
 | Deterministic controller integration | Passed: temporary Git repositories, acceptance execution, independent fixture review, verified commits, ZIP/report generation and automatic next-task continuation |
 | Actual subprocess adapter with fake Codex executable | Passed: read-only sandbox argv, stdin policy, schema/output parsing; this does not call a model |
 | Failure/safety paths | Passed: dependency ordering, concurrent claims, crash recovery, dirty workspace preservation, bounded clean retries, STOP during active process, timeout, OS controller lock, estimate limit, Git-history tampering, sensitive staged files, delivery failure and unresolved dependencies |
@@ -22,3 +22,5 @@ Validated in the managed Linux cloud environment on 28 October 2026. No successf
 The saved cloud draft contains installation and startup instructions and the `chatgpt.com` custom domain addition. Saving a draft does not apply network policy or publish an environment. Review/save environment settings, publish, then retry a live read-only Codex smoke before claiming live autonomous readiness.
 
 The dashboard is running locally with no fabricated projects, tasks or successful outcomes. Source archives exclude authentication bindings, uploaded `.env` files, local logs and controller state. The current source release is suitable for development and review; live Codex behavior and native Windows operation remain explicit validation limitations.
+
+A subsequent Pages-preview change also passed seven frontend tests, both production build modes, and a static Chromium smoke with browser-only task persistence and zero controller API requests. See PREVIEW.md for publishing status and instructions.

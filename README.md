@@ -88,3 +88,7 @@ See [product model](docs/PRODUCT.md), [architecture](docs/ARCHITECTURE.md), [sec
 After building, run `python scripts/package_release.py <outside-checkout.zip>`. The ZIP includes tracked source and built dashboard assets, with a SHA-256 sidecar. It excludes local state, tokens, virtual environments and package caches.
 
 In managed cloud environments where the injected Codex home is read-only, `GROFLOO_CODEX_HOME` can point to a writable Codex runtime directory. The controller uses it only for Codex child processes; authentication should remain an existing injected binding. Do not copy credentials into source or logs. This override is unnecessary for a normal writable Windows user profile.
+
+## Public dashboard preview
+
+A browser-only preview is prepared on the `gh-pages` branch. It includes clearly labeled sample tasks and saves edits in your browser; it never connects to the private controller or runs Codex. See [Pages setup and preview limits](docs/PREVIEW.md). The expected address is `https://ablelyf-tech.github.io/hiyo/` after Pages is enabled for the branch in repository settings.

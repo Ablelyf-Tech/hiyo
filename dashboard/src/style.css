@@ -1276,3 +1276,46 @@ pre {
     transition: none !important;
   }
 }
+
+.preview-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  margin-bottom: 25px;
+  background: #e9ede2;
+  border: 1px solid #d7dfca;
+  border-radius: 6px;
+  font-size: 11px;
+}
+.preview-banner b {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+.preview-banner span {
+  color: #68765b;
+  line-height: 1.6;
+}
+.preview-banner a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 650px) {
+  .preview-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 14px;
+  }
+  .preview-banner span {
+    font-size: 10px;
+  }
+  .preview-banner a {
+    font-size: 10px;
+  }
+}

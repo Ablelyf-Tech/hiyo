@@ -29,8 +29,11 @@ import {
 } from "lucide-react";
 import { roles, metrics, duration } from "./model";
 import "./style.css";
+import { previewApi } from "./preview";
+const IS_PREVIEW = import.meta.env.VITE_DEMO_MODE === "true";
 
 async function api(path, body) {
+  if (IS_PREVIEW) return previewApi(path, body);
   const response = await fetch("/api" + path, {
     method: body === undefined ? "GET" : "POST",
     headers: { "Content-Type": "application/json" },
@@ -209,11 +212,12 @@ function App() {
         </nav>
         <div className="header-right">
           <span className="private">
-            <LockKeyhole size={13} /> Private workspace
+            <LockKeyhole size={13} />{" "}
+            {IS_PREVIEW ? "UI preview" : "Private workspace"}
           </span>
           <button
             className="avatar"
-            title="Sign out"
+            title={IS_PREVIEW ? "Browser preview" : "Sign out"}
             onClick={() => action("/logout")}
           >
             G
@@ -221,6 +225,24 @@ function App() {
         </div>
       </header>
       <main>
+        {IS_PREVIEW && (
+          <div className="preview-banner" role="status">
+            <div>
+              <b>Interactive UI preview</b>
+              <span>
+                Sample backlog · saved in your browser only · no Codex workers,
+                tests, or billing run here.
+              </span>
+            </div>
+            <a
+              href="https://github.com/Ablelyf-Tech/hiyo#readme"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Install the full controller <ArrowUpRight size={14} />
+            </a>
+          </div>
+        )}
         <div className="page-heading">
           <div>
             <p className="eyebrow">
@@ -518,7 +540,9 @@ function App() {
                 <div className="controls">
                   <button
                     className="primary"
-                    disabled={busy || data.running || !tasks.length}
+                    disabled={
+                      IS_PREVIEW || busy || data.running || !tasks.length
+                    }
                     onClick={() => setModal("start")}
                   >
                     <Play size={15} fill="currentColor" /> Start autopilot
@@ -945,7 +969,11 @@ function App() {
                   <button
                     className="primary"
                     disabled={
-                      busy || data.running || data.stopped || !tasks.length
+                      IS_PREVIEW ||
+                      busy ||
+                      data.running ||
+                      data.stopped ||
+                      !tasks.length
                     }
                   >
                     Start approved backlog <Play size={16} />

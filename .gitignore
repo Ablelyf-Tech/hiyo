@@ -9,3 +9,4 @@ dashboard/dist/
 .runtime/
 *.egg-info/
 playwright-report/
+dashboard/dist-preview/
